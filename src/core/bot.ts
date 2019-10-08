@@ -5,15 +5,15 @@ import log from '../helpers/logger';
 
 export class Bot extends Client {
   /**
+   * Список загруженных команд
    * @public
-   * @description Список загруженных команд
    * @type {Map<string, any>}
    */
   public commands: Map<string, any> = new Map();
 
   /**
+   * Префикс команд, по умолчанию равен !
    * @public
-   * @description Префикс команд, по умолчанию равен !
    * @type {string}
    */
   public prefix: string = '!';
@@ -22,15 +22,43 @@ export class Bot extends Client {
     super();
   }
 
-  public async init() {
+  /**
+   * Иницилизация бота и всех его зависимостей
+   * @async
+   * @public
+   */
+  public async init(): Promise<string> {
     log.info('Иницилизируем бота');
     // todo: загрузка команд
 
-    this.on('error', log.error)
+    this
+      .on('error', log.error)
       .on('warn', log.warn)
-      .on('disconnect', log.info);
+      // Live time hooks
+      .on('ready', this.onUp)
+      .on('disconnect', this.onDown);
 
     // запускаем самого бота после всех настроек и загрузок
-    await this.login(config.bot_token);
+    return this.login(config.bot_token);
+  }
+
+  /**
+   * Хук срабатывает после того как бот был запущен и подключился к серверу
+   * @async
+   * @private
+   */
+  private async onUp() {
+    log.info('Бот запустился');
+    return;
+  }
+
+  /**
+   * Хук срабатывает если бот отключился
+   * @async
+   * @private
+   */
+  private async onDown() {
+    log.error('Бот упал');
+    return;
   }
 }
