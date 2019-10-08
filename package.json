@@ -9,6 +9,7 @@
   "main": "src/index.ts",
   "scripts": {
     "start": "ts-node src/index.ts",
+    "start:watch": "nodemon",
     "start:prod": "echo \"Not implement\"",
     "clean": "rimraf lib",
     "format": "prettier --write \"{src,__tests__}/**/*.ts\" --single-quote --trailing-comma es5",
@@ -28,6 +29,7 @@
   "devDependencies": {
     "@types/dotenv": "^6.1.1",
     "@types/node": "^12.7.11",
+    "nodemon": "^1.19.3",
     "prettier": "^1.18.2",
     "rimraf": "^3.0.0",
     "ts-node": "^8.4.1",
