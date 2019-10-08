@@ -4,21 +4,22 @@ import { RichEmbed } from 'discord.js';
 
 
 export default class CmdHelp implements IBaseCommand {
-  public static group: string = 'global';
-  public static title: string = 'help';
-  public static description: string = 'Справка по командам';
-  public static usage: string = 'help <cmd|all>';
+  public group: string = 'global';
+  public title: string = 'help';
+  public description: string = 'Справка по командам';
+  public usage: string = 'help <cmd|all>';
 
-  public static aliases: string[] = ['help', 'h'];
+  public aliases: string[] = ['help', 'h'];
 
-  public async eval(event: ICommandEvent): Promise<void> {
-    log.info(event.message.content);
+  public async eval({ self, channel }: ICommandEvent): Promise<void> {
 
     const embed = new RichEmbed()
-      .setAuthor('devOps')
-      .setTitle('help cmd')
-      .addField('Test', 123);
+      .setTitle('Список команд');
 
-    event.channel.sendEmbed(embed);
+    self.commands.forEach((cmd) => {
+      embed.addField(cmd.title, [cmd.description, cmd.usage]);
+    });
+
+    channel.sendEmbed(embed);
   }
 }

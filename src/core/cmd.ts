@@ -1,7 +1,8 @@
-import { Client, Message, Guild, TextChannel, User } from "discord.js";
+import { Message, Guild, TextChannel, User } from "discord.js";
+import { Bot } from "./bot";
 
 export interface ICommandEvent {
-  client: Client;
+  self: Bot;
   channel: TextChannel;
 
   message: Message;
@@ -11,19 +12,19 @@ export interface ICommandEvent {
 }
 
 export abstract class IBaseCommand {
-  public static group: string;
-  public static title: string;
-  public static description: string;
-  public static usage: string;
-  public static aliases: string[];
+  public group: string = '';
+  public title: string = '';
+  public description: string = '';
+  public usage: string = '';
+  public aliases: string[] = [];
 
-  public static argsRegex?: RegExp;
+  public argsRegex?: RegExp;
 
-  public static cooldown?: number;
-  public static cooldownMessage?: string;
+  public cooldown?: number;
+  public cooldownMessage?: string;
 
   // todo: this
-  public static needRoles?: string[];
+  public needRoles?: string[];
 
   public abstract eval(event: ICommandEvent): Promise<void>;
 }

@@ -10,7 +10,7 @@ export class Bot extends Client {
   /**
    * Список загруженных команд
    * @public
-   * @type {Map<string, any>}
+   * @type {Map<string, IBaseCommand>}
    */
   public commands: Map<string, IBaseCommand> = new Map();
 
@@ -35,7 +35,8 @@ export class Bot extends Client {
     // todo: загрузка команд
 
     // fixme
-    this.commands.set(CmdHelp.aliases[0], new CmdHelp);
+    const cmd = new CmdHelp;
+    this.commands.set(cmd.aliases[0], cmd);
 
     this
       .on('error', log.error)
@@ -95,7 +96,7 @@ export class Bot extends Client {
       const args: string[] = message.content.split(" ").slice(1);
 
       cmd.eval({
-        client: this,
+        self: this,
         author: message.author,
         channel,
         message,
