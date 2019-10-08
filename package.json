@@ -1,0 +1,35 @@
+{
+  "name": "iori-minase",
+  "author": {
+    "email": "deissh@yandex.ru",
+    "name": "deissh"
+  },
+  "version": "0.0.1",
+  "license": "MIT",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "start:prod": "echo \"Not implement\"",
+    "clean": "rimraf lib",
+    "format": "prettier --write \"{src,__tests__}/**/*.ts\" --single-quote --trailing-comma es5",
+    "lint": "tslint --force --format verbose \"src/**/*.ts\"",
+    "prebuild": "npm run clean && npm run format && npm run lint && echo Using TypeScript && tsc --version",
+    "build": "tsc --pretty",
+    "watch": "npm run build -- --watch",
+    "release:major": "npm version major && git push origin && git push origin --tags",
+    "release:minor": "npm version minor && git push origin && git push origin --tags",
+    "release:patch": "npm version patch && git push origin && git push origin --tags"
+  },
+  "dependencies": {
+    "discord.js": "^11.5.1"
+  },
+  "devDependencies": {
+    "@types/node": "^12.7.11",
+    "prettier": "^1.18.2",
+    "rimraf": "^3.0.0",
+    "ts-node": "^8.4.1",
+    "tslint": "^5.20.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.6.3"
+  }
+}
