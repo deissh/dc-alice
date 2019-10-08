@@ -21,9 +21,12 @@
     "release:patch": "npm version patch && git push origin && git push origin --tags"
   },
   "dependencies": {
-    "discord.js": "^11.5.1"
+    "discord.js": "^11.5.1",
+    "dotenv": "^8.1.0",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
+    "@types/dotenv": "^6.1.1",
     "@types/node": "^12.7.11",
     "prettier": "^1.18.2",
     "rimraf": "^3.0.0",
